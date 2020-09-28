@@ -3,6 +3,8 @@ import typing
 import plotly.express as px
 #import numpy as np
 from simpledbf import Dbf5
+from urllib.request import urlopen
+import json
 
 def file_len(fname):
     with open(fname, encoding="utf-8") as f:
@@ -28,8 +30,13 @@ def main():
     #iris = pd.read_csv("mv_immeubles_2020t2.csv")
     #iris = pd.read_csv("test.csv")
 
-    for element in df.columns:
-        print(element)
+    with urlopen('https://geo.api.gouv.fr/communes?fields=nom,code,codesPostaux,codeDepartement,codeRegion,population&format=json&geometry=centre') as response:
+        counties = json.load(response)
+        for element in counties:
+            element["INSEE_COM"] = element["code"]
+            
+    
+
       
     
     """"fig = px.scatter_mapbox(iris, lat="y", lon="x", 
@@ -41,11 +48,11 @@ def main():
         mapbox_style="carto-positron", hover_data=["pm_etat"], radius=5)"""
 
 
-    fig = px.choropleth_mapbox(df, geojson="INSEE_DEP", locations='Dpt', color='couv',
+    fig = px.choropleth_mapbox(df, geojson=counties, locations='INSEE_COM', color='couv',
                         color_continuous_scale="Viridis",
-                        range_color=(0, 12),
+                        range_color=(0, 100),
                         mapbox_style="carto-positron",
-                        zoom=3, center = {"lat": 37.0902, "lon": -95.7129},
+                        zoom=3, center = {"lat": 48.853, "lon": 2.3488},
                         opacity=0.5,
                         labels={'unemp':'unemployment rate'}
                         )
