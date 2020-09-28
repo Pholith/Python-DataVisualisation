@@ -26,19 +26,20 @@ def main():
     #copyStartFile()
 
     dbf = Dbf5('2020T2_communes.dbf')
+    #dbf = Dbf5('2020_T2_departement.dbf')
+
     df = dbf.to_dataframe()
     #iris = pd.read_csv("mv_immeubles_2020t2.csv")
     #iris = pd.read_csv("test.csv")
 
-    with urlopen('https://geo.api.gouv.fr/communes?fields=nom,code,codesPostaux,codeDepartement,codeRegion,population&format=json&geometry=centre') as response:
+    #https://geo.api.gouv.fr/communes?fields=nom,code&format=json&geometry=centre
+    with urlopen('file:///C:/Users/vince/OneDrive/Documents/Projet/Python-DataVisualisation/communes-20190101.json') as response:
         counties = json.load(response)
-        for element in counties:
-            element["INSEE_COM"] = element["code"]
-            
-    
 
-      
-    
+    #with urlopen('file:///C:/Users/vince/OneDrive/Documents/Projet/Python-DataVisualisation/communes-20190101.json') as response:
+    #    counties = json.load(response)
+   
+        
     """"fig = px.scatter_mapbox(iris, lat="y", lon="x", 
                     color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10,
                     mapbox_style="carto-positron", hover_data=["pm_etat"])"""
@@ -48,14 +49,16 @@ def main():
         mapbox_style="carto-positron", hover_data=["pm_etat"], radius=5)"""
 
 
-    fig = px.choropleth_mapbox(df, geojson=counties, locations='INSEE_COM', color='couv',
+    fig = px.choropleth_mapbox(df, geojson=counties, locations='INSEE_COM', 
+                        featureidkey="properties.insee", 
+                        color='couv', 
                         color_continuous_scale="Viridis",
-                        range_color=(0, 100),
+                        range_color=(0, 80),
                         mapbox_style="carto-positron",
-                        zoom=3, center = {"lat": 48.853, "lon": 2.3488},
-                        opacity=0.5,
-                        labels={'unemp':'unemployment rate'}
-                        )
+                        zoom=4, center = {"lat": 48.853, "lon": 2.3488},
+                        opacity=0.2,
+                        labels={'NOM_COM':'nom'})
+
     fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
     
     fig.show()
