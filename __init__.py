@@ -65,10 +65,16 @@ def main():
 	fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
 
+	# Select only 2 columns and group cities by couv
 	df2 = df[["couv", "NOM_COM"]].groupby("couv").count().reset_index()
-	#print(df2)
-
-	fig2 = px.histogram(df2, x="couv", y="NOM_COM", nbins=6, log_y=True, labels={"couv": "Couverture de fibre", "NOM_COM":"Nombre de commune"})
+	print(df2)
+	fig2 = px.histogram(df2, x="couv", y="NOM_COM", log_y=True, labels=dict(couv= "Couverture de fibre"))
+	fig2.update_layout(bargap=0.1, yaxis_title="Total de communes")
+	fig2.update_traces(xbins=dict( 
+			start=0,
+			end=90,
+			size=10
+		))
 
 
 	# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
