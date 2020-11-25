@@ -40,6 +40,7 @@ def main():
 	with urlopen("file:" + os.path.join(dirname, "communes-20190101.json")) as response:
 		counties = json.load(response)
 
+
 	# Debug help
 	for col in df.columns:
 		print(col, end=" ")
@@ -52,7 +53,7 @@ def main():
 		locations="INSEE_COM",
 		featureidkey="properties.insee",
 		color="couv",
-		color_continuous_scale="Viridis",
+		color_continuous_scale="BuPu",
 		range_color=(0, 80),
 		mapbox_style="carto-positron",
 		zoom=4,
@@ -61,8 +62,13 @@ def main():
 		hover_data=["NOM_COM"],  # ftth
 		labels={"NOM_COM": "Commune ", "couv": "Couverture de fibre "},
 	)
-
 	fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+
+
+	df2 = df[["couv", "NOM_COM"]].groupby("couv").count().reset_index()
+	#print(df2)
+
+	fig2 = px.histogram(df2, x="couv", y="NOM_COM", nbins=6, log_y=True, labels={"couv": "Couverture de fibre", "NOM_COM":"Nombre de commune"})
 
 
 	# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -74,7 +80,7 @@ def main():
 			html.Div(
 				children=[
 					dcc.Graph(id="example-graph-1", figure=fig, style = {"width": "100%"}),
-					dcc.Graph(id="example-graph-2", figure=fig, style = {"width": "100%"}),
+					dcc.Graph(id="example-graph-2", figure=fig2, style = {"width": "100%"}),
 				],
 				style =	{"display": "flex", "flex-direction": "row", "width": "95%"}
 			),

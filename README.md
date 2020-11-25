@@ -10,6 +10,7 @@ Commande d'exécution:
 python3 __init__.py
 
 
+
 Copié collé blackboard:
 
 Les représentations graphiques incluses dans le dashboard devront éclairer le sujet que vous avez choisi, en répondant à une problématique. 
