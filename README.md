@@ -17,16 +17,16 @@ python3.7 -m pip install dash
 ```
 python3.7 __init__.py
 ```
-Le serveur dash sera lancé sur ce lien http://127.0.0.1:8050/
+Le serveur dash sera lancé sur ce lien http://127.0.0.1:8050/ .   
 Le jeu de donnée étant important (80Mo), le lancement du programme et les chargements des données sur la page peuvent prendre quelques minutes.
 
 # Rapport d'analyse
 
 ### Source des données
 
-Les données utilisés dans le programme sont téléchargables sur ce ![lien](https://www.data.gouv.fr/fr/datasets/le-marche-du-haut-et-tres-haut-debit-fixe-deploiements/).
+Les données utilisés dans le programme sont téléchargables sur ce [lien](https://www.data.gouv.fr/fr/datasets/le-marche-du-haut-et-tres-haut-debit-fixe-deploiements/).    
 Les données sont accessibles dynamiquement via ce lien mais nous avons volontairement choisi de lire ces données depuis un fichier téléchargé pour éviter de retélécharger le fichier de 80Mo à chaque utilisation du programme. 
-Le fichier geojson permet d'affiche les polygones des communes, il a aussi été téléchargé sur le site du gouvernement.
+Le fichier geojson permet d'afficher les polygones des communes, il a aussi été téléchargé sur le site du gouvernement.
 
 ### Analyse
 
