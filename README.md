@@ -35,8 +35,8 @@ Le nord-est est globalement plus couvert que le sud-ouest.
 
 La couverture de fibre semble liée à la densité de population de chaque commune. Par exemple, le Nord pas de calais et Paris sont des zones très peuplés et très couvertes, le Limousin et la Champagne-ardenne sont peu peuplés et peu couvertes par la fibre.
 
-Le département de la Loire qui est complètement couvert par la fibre et sa frontière avec les autres départements est très nette sur la carte, cela 
-laisse supposer que la couverture de fibre est influencée par la politique départementale. Cela est aussi visible sur les frontières de la Picardie.
+Le département de la Loire est complètement couvert par la fibre et sa frontière avec les autres départements est très nette sur la carte. Cela 
+laisse supposer que la couverture de fibre est influencée par la politique départementale. C'est aussi visible sur les frontières de la Picardie.
 
 On peut enfin voir que les plus grandes villes de France et leurs périphéries sont bien couvertes par la fibre.
 
