@@ -31,13 +31,12 @@ def file_len(fname):
 
 def main():
 		
-	dbf = Dbf5("2020T2_communes.dbf")
+	# Read and convert the Dbf5 format into a usable dataframe format
+	dbf = Dbf5("data/2020T2_communes.dbf")
+	df = dbf.to_dataframe() 
 
-	df = dbf.to_dataframe()
-
-	# Source: https://geo.api.gouv.fr/communes?fields=nom,code&format=json&geometry=centre
-	# Read the data
-	with urlopen("file:" + os.path.join(dirname, "communes-20190101.json")) as response:
+	# Read a geojson file used in the map
+	with urlopen("file:" + os.path.join(dirname, "data/communes-20190101.json")) as response:
 		counties = json.load(response)
 
 
@@ -51,16 +50,16 @@ def main():
 		df,
 		geojson=counties,
 		locations="INSEE_COM",
-		featureidkey="properties.insee",
-		color="couv",
+		featureidkey="properties.insee", # super important - This is the path to the geojson field that match with INSEE_COM
+		color="couv", # the color will depends of couv
 		color_continuous_scale="BuPu",
 		range_color=(0, 80),
 		mapbox_style="carto-positron",
 		zoom=4,
-		center={"lat": 48.853, "lon": 2.3488},
-		opacity=0.2,
-		hover_data=["NOM_COM"],  # ftth
-		labels={"NOM_COM": "Commune ", "couv": "Couverture de fibre "},
+		center={"lat": 48.853, "lon": 2.3488}, # Center on Paris
+		opacity=0.5,
+		hover_data=["NOM_COM"], # Add the city name on mouse hover
+		labels={"NOM_COM": "Commune ", "couv": "Couverture de fibre "}, # Rename the labels
 	)
 	fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
@@ -77,7 +76,7 @@ def main():
 		))
 
 
-	# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+	# Use dash and create the html template
 	app = dash.Dash()
 	server = app.server
 	app.layout = html.Div(
